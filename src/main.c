@@ -27,14 +27,17 @@ int main(void)
     // - prescaler de 1 a 128 (PS)
     // - modo de operação EDGE_PWM
     pwm_tpm_Init(TPM2, TPM_PLLFLL, TPM_MODULE, TPM_CLK, PS_128, EDGE_PWM);
+    pwm_tpm_Init(TPM0, TPM_PLLFLL, TPM_MODULE, TPM_CLK, PS_128, EDGE_PWM);
 
 
     // Inicializa o canal do TPM2 para gerar sinal PWM nas portas GPIOB_2 e GPIOB_3
     pwm_tpm_Ch_Init(TPM2, 0, TPM_PWM_H, GPIOB, 2);
+    pwm_tpm_Ch_Init(TPM2, 1, TPM_PWM_H, GPIOB, 3);
 
 
     // Define o valor do duty cycle
     pwm_tpm_CnV(TPM2, 0, duty_25);
+    pwm_tpm_CnV(TPM2, 1, duty_100);
 
 
     //Configuração dos pinos para saída digital
@@ -59,18 +62,21 @@ int main(void)
         {
             case ESTADO_25:
                 pwm_tpm_CnV(TPM2, 0, duty_25);
+                pwm_tpm_CnV(TPM2, 1, duty_25);
                 k_msleep(3000);
                 estado = ESTADO_50;
                 break;
 
             case ESTADO_50:
                 pwm_tpm_CnV(TPM2, 0, duty_50);
+                pwm_tpm_CnV(TPM2, 1, duty_50);
                 k_msleep(3000);
                 estado = ESTADO_100;
                 break;
 
             case ESTADO_100:
                 pwm_tpm_CnV(TPM2, 0, duty_100);
+                pwm_tpm_CnV(TPM2, 1, duty_100);
                 k_msleep(3000);
                 estado = ESTADO_25;
                 break;
@@ -78,4 +84,5 @@ int main(void)
     }
     return 0;
 }
+    
     
