@@ -29,17 +29,19 @@ int main(void)
     pwm_tpm_Ch_Init(TPM2, 1, TPM_PWM_H, GPIOB, 19);
 
 
-    // Define o valor do duty cycle
-    pwm_tpm_CnV(TPM2, 0, duty_25);
-    pwm_tpm_CnV(TPM2, 1, duty_50);
-
-
-
-  
+   
     // Loop infinito
     for (;;)
     {
-        
+        pwm_tpm_CnV(TPM2, 0, duty_25);
+        pwm_tpm_CnV(TPM2, 1, duty_50);
+       k_sleep(K_MSEC(1000));
+       pwm_tpm_CnV(TPM2, 0, duty_100);
+       pwm_tpm_CnV(TPM2, 1, duty_100);
+       k_sleep(K_MSEC(1000));
     }
     return 0;
 }
+    
+
+
